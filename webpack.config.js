@@ -1,9 +1,15 @@
+
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 const path = require('path');
+ 
 module.exports = {
-  entry: path.join(__dirname, 'app', 'index'),
+  entry: {
+    index:path.join(__dirname, 'app', 'src')
+     
+  },
   output: {
-    filename: 'bundle.js',
-    path: path.resolve(__dirname, 'dist')
+    filename: '[name].js',
+    path: path.resolve(__dirname, 'dist/js')
   },
   module: {
     rules: [{
@@ -21,11 +27,19 @@ module.exports = {
       }
     }]
   },
+  plugins:[
+    new HtmlWebpackPlugin( {
+      filename:'../html/index.html',
+      hash:true
+    })
+  ],
   resolve: {
     extensions: ['.json', '.js', '.jsx', '.css']
   },
   devtool: 'source-map',
   devServer: {
-    publicPath: path.join('/dist/')
+    publicPath: path.join('/dist/'),
+    port:9000
   }
 };
+ 
