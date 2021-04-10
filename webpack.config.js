@@ -1,5 +1,6 @@
 
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CleanWebpackPlugin = require('clean-webpack-plugin');
 const path = require('path');
  
 module.exports = {
@@ -23,13 +24,16 @@ module.exports = {
       ],
       loader: 'babel-loader',
       query: {
-        presets: ['es2015']
+        presets: ['es2015'],
+        plugins: ['transform-class-properties']
       }
     }]
   },
   plugins:[
+    new CleanWebpackPlugin(['dist']),
     new HtmlWebpackPlugin( {
       filename:'../html/index.html',
+      template:path.join(__dirname, "app/html/index.html"),
       hash:true
     })
   ],
@@ -38,7 +42,9 @@ module.exports = {
   },
   devtool: 'source-map',
   devServer: {
-    contentBase: path.join(__dirname, "dist"),
+    contentBase: './dist',
+    inline:true,
+    hot:true,
     port:9000
   }
 };
