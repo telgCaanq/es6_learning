@@ -5,22 +5,27 @@ const path = require('path');
  
 module.exports = {
   entry: {
-    index:path.join(__dirname, 'app', 'src')
-     
+    index:'./app/src/index.js',
+    test:'./app/src/test.js'
+    
   },
   output: {
-    filename: '[name].js',
-    path: path.resolve(__dirname, 'dist/js')
+    filename: 'js/[name].js',
+    path: path.resolve(__dirname, './dist/')
+  },
+  devServer: {
+  
+     
+    port:9001
   },
   module: {
     rules: [{
-      test: /.jsx?$/,
+      test: /.js?$/,
       include: [
-        path.resolve(__dirname, 'app')
+        path.resolve(__dirname, 'app','src')
       ],
       exclude: [
-        path.resolve(__dirname, 'node_modules'),
-        path.resolve(__dirname, 'bower_components')
+        path.resolve(__dirname, 'node_modules') 
       ],
       loader: 'babel-loader',
       query: {
@@ -32,20 +37,13 @@ module.exports = {
   plugins:[
     new CleanWebpackPlugin(['dist']),
     new HtmlWebpackPlugin( {
-      filename:'../html/index.html',
-      template:path.join(__dirname, "app/html/index.html"),
+      filename:'./index.html',
+      template:path.join(__dirname, "./app/html/index.html"),
+      inject:'true',
       hash:true
     })
-  ],
-  resolve: {
-    extensions: ['.json', '.js', '.jsx', '.css']
-  },
-  devtool: 'source-map',
-  devServer: {
-    contentBase: './dist',
-    inline:true,
-    hot:true,
-    port:9000
-  }
+  ] 
+  
+  
 };
  
