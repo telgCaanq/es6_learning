@@ -70,6 +70,8 @@
 "use strict";
 
 
+document.writeln('11');
+
 /***/ })
 /******/ ]);
-//# sourceMappingURL=app.js.map
+//# sourceMappingURL=index.js.map
